@@ -1,0 +1,46 @@
+
+<div style="margin: 20px 20px">
+  <h1>Tribal Zone</h1>
+  <div class="zone-subheader">Tweets in groups - because it's less jarring!</div>
+</div>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Twitter Users</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% if @tribes.blank? %>
+    <tr>
+      <td colspan="3">No tribes yet!</td>
+    </tr>
+
+<% else %>
+
+  <% @tribes.each do |tribe| %>
+    <tr>
+      <td><%= tribe.name %></td>
+      <td><%= tribe.description %></td>
+      <td><%= tribe.twitter_users %></td>
+      <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
+      <td><%= link_to 'Tweets', show_tweets_user_tribe_path(tribe.id, :user_id => current_user.id) %></td>
+      <td>|</td>
+      <td><%= link_to 'Info', user_tribe_path(tribe.id, :user_id => current_user.id) %></td>
+      <td>|</td>
+      <td><%= link_to 'Edit', edit_user_tribe_path(tribe, :user_id => current_user.id) %></td>
+      <td>|</td>
+      <td><%= link_to 'Obliterate', user_tribe_path(tribe.id, :user_id => current_user.id), :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Tribe', new_user_tribe_path %>
+
+

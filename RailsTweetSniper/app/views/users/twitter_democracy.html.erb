@@ -1,0 +1,50 @@
+
+  <p style="background-color:orange">
+    <h3>Democracy Zone</h3>
+    <div class="zone-subheader">Equal Number of Tweets per Person - Because It's Fair</div>
+  </p>
+
+  <h5>
+    Current tweets per person: <%= @tweets_per_person %> 
+  </h5>
+
+  <% unless @friends.blank? %>
+    <ul id="democracy-list">
+      <% @friends.each do |friend| %>
+        <li>
+          <img src="<%= friend[:profile_image_link] %>" />
+          <span style="color:black; font-size: 120%">
+            <%= friend[:name] %> (<%= friend[:screen_name] %>)
+          </span>
+          <table border="1" width="85%">
+            <tr>
+              <td>
+                <ol>
+                  <% 0.upto(@tweets_per_person - 1) do |num_tweet| %>
+                    <li>
+                      <%= friend[:most_recent_texts][num_tweet] %>
+                    </li>
+                  <% end %>
+                </ol>
+              </td>
+              <td>
+                <span id="snipe-link" style="white-space: nowrap"> 
+                  <%= link_to image_tag("redx_16.png"), snipe_friend_user_path(@user_id, :sname => friend[:screen_name]), {:title => "Snipe!"} %>
+                </span>
+              </td>
+            </tr>
+          </table>
+        </li>
+
+        <br />
+        <hr width="50%" />
+
+      <% end %>
+    </ul>
+
+  <% else %>
+    No Friends found
+  <% end %>
+
+
+  <%= render :partial => 'shared/mushpot' %>

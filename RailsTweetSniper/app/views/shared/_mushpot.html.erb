@@ -1,0 +1,21 @@
+
+  <% unless @prisoners.blank? %>
+    <% if !@prisoners.keys.compact.blank? %>
+      <h3>In the Mushpot/Jail</h3>
+      <div id="mushpot" style="position:relative;">
+        <div id="mushpot-jail-bars">
+          <p>
+            <% @prisoners.each_pair do |k, v| %>
+              <% if @zone == "text" %>
+                <span style="color: #fff">
+                  <%= k %> &nbsp; &nbsp; &nbsp;
+                </span>
+              <% else %>
+                <img height="40" width="40" src="<%= v %>" alt="<%= k %>" />
+              <% end %>
+            <% end %>
+          </p>
+	</div>
+      </div>
+    <% end %>
+  <% end %>

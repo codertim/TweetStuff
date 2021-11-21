@@ -1,0 +1,23 @@
+
+    <% content_for :intro do %>
+       <h2 id="welcome">Welcome to Tweet Sniper!</h2>
+    <% end %>
+
+    <p>
+       <h6>Take charge of you tweets! Temporarily "take out" tweets from annoying people!</h6>
+    </p>
+
+
+    <% if !signed_in? %>
+      <br />
+
+      <% if session[:is_registered] %>
+        <%= link_to "Login", signin_path, :class => 'signup_button round', :style => "padding-bottom: 5px; padding-top: 5px;" %>
+      <% else %>
+        <%= link_to "Sign up now!", signup_path, :class => 'signup_button round' %>
+      <% end %>
+
+    <% else %>
+       Click on a zone to see tweets
+    <% end %>
+

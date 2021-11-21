@@ -1,0 +1,54 @@
+
+  <p style="background-color:orange">
+    <h3>Text Zone</h3>
+    <div class="zone-subheader">Tweets in Text Only - Because It's Fast and Low-Bandwidth!</div>
+  </p>
+
+  <h5>
+    Current tweets per person: <%= @tweets_per_person %> 
+  </h5>
+
+  <% unless @friends.blank? %>
+    <ul id="text-list">
+      <% @friends.each do |friend| %>
+        <li>
+          <span style="color:black; font-size: 120%">
+            <%= friend[:name] %> (<%= friend[:screen_name] %>)
+          </span>
+          <table border="1" width="50%">
+            <tr>
+              <td>
+                <ol>
+                  <% 0.upto(@tweets_per_person - 1) do |num_tweet| %>
+                    <li>
+                      <%= friend[:most_recent_texts][num_tweet] %>
+                    </li>
+                  <% end %>
+                </ol>
+              </td>
+              <td>
+                <span id="snipe-link"> 
+                  <%= link_to "Snipe", snipe_friend_user_path(@user_id, :sname => friend[:screen_name], :zone => "text") %>
+                </span>
+              </td>
+            </tr>
+          </table>
+
+          <br />
+          <br />
+          <hr width="100%" />
+          <br />
+        </li>
+
+      <% end %>
+    </ul>
+
+  <% else %>
+    No friends found
+  <% end %>
+
+
+  <%= render :partial => 'shared/mushpot' %>
+
+
+

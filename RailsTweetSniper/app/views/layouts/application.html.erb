@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title><%= get_title %></title>
+    <%= csrf_meta_tag %>
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->    
+    <%#= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
+    <%#= stylesheet_link_tag 'blueprint/print',  :media => 'print' %>
+    <!--[if lt IE 8]><%= stylesheet_link_tag 'blueprint/ie' %><![endif]-->
+    <%#= stylesheet_link_tag 'custom', :media => 'screen' %>
+    <%= stylesheet_link_tag 'application' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+
+  <body>
+    <div class="container">
+      <nav class="round">
+        <ul>
+          <li><%= link_to "Home", root_path %></li>
+          <% if signed_in? %>
+            <li><%= link_to "Preferences", current_user %></li>
+          <% end %>
+          <li>
+            <% if signed_in? %>
+              <%#= link_to "Logout", signout_path, :method => :delete %>
+              <%= link_to(image_tag('logout_32x32.png', :id => 'signout-image', :alt => 'Logout image link'), signout_path, :method => :delete) %>
+            <% else %>
+              <%= link_to "Login", signin_path %>
+            <% end %>
+          </li>
+        </ul>
+      </nav>
+
+      <header style="background-color: #ffffff" class="shadowed">
+        <% logo = image_tag("logo.gif", :alt => "Sample App") %>
+        <%= link_to logo, root_path, :id => "logo-image-link" %>
+      </header>
+
+      <section id="links-section">
+        <section class="round">
+          <% flash.each do |key, value| %>
+            <div class="flash <%= key %>"><%= value %></div>
+            <br />
+          <% end %>
+          <%if signed_in? %>
+            <div id="nav-tabs">
+              <ul>
+                <% if !@zone.blank? && @zone == "twitter_login" %>
+                  <li>
+                    <span style="color:yellow;">Twitter Login</span>
+                  </li>
+                <% else %>
+                  <li class="clickable-link">
+                    <%= link_to "Twitter Login", {:controller => 'pages', :action => 'twitter_login' } %>
+                  </li>
+                <% end %>
+
+                <% if !@zone.blank? && @zone == "democracy" %>
+                    <li>
+                        <span style="color:yellow;">Democracy Zone</span>
+                    </li>
+                <% else %>
+                    <li class="clickable-link">
+                        <%= link_to "Democracy Zone", {:controller => 'users', :action => 'twitter_democracy', :id => current_user.id }, {:title => "Same number of tweets for everyone!"} %>
+                    </li>
+                <% end %>
+
+                <% if !@zone.blank? && @zone == "text" %>
+                  <li>
+                    <span style="color:yellow;">Text Zone</span>
+                  </li>
+                <% else %>
+                  <li class="clickable-link">
+                    <%= link_to "Text Zone", {:controller => 'users', :action => 'twitter_text', :id => current_user.id }, {:title => "No images, so faster load time!"} %>
+                  </li>
+                <% end %>
+
+                <% if !@zone.blank? && @zone == "tribal" %>
+                    <li>
+                      <span style="color:yellow">Tribal Zone</span>
+                    </li>
+                <% else %>
+                    <li class="clickable-link">
+                      <%= link_to "Tribal Zone", user_tribes_path(current_user.id), {:title => "Organize into tribes!" } %>
+                      <%#= link_to "Tribal Zone", {:controller => 'tribes', :action => 'index', :user_id => current_user.id } %>
+                    </li>
+                <% end %>
+              </ul>
+            </div>
+
+          <% else %>
+            <div id="nav-tabs" style="height: 2px;">
+            </div>
+          <% end %>
+
+        </section>
+
+      </section>
+
+
+      <div id="content">
+          <%= yield :intro %>
+          <%= yield %>
+      </div>
+
+
+      <footer>
+
+        <nav class="round, shadowed">
+          <ul>
+            <li><%#= link_to "About", about_path %></li>
+            <%#= link_to "Contact", contact_path %>
+            <%#= link_to "News" %>
+            <li><span style="font-size: 0.7em"><a href="http://www.railstutorial.org">Inspired by Rails Tutorial</a></span></li>
+          </ul>
+        </nav>
+
+      </footer>
+
+      <%= debug(params) if Rails.env.development? %>
+    </div>
+  </body>
+</html>
+

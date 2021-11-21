@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @tribe.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @tribe.description %>
+</p>
+
+<p>
+  <b>Twitter Users:</b>
+  <%= @tribe.twitter_users %>
+</p>
+
+<br />
+
+<%= link_to 'Edit', edit_user_tribe_path(@tribe, :user_id => current_user.id) %> |
+<%= link_to 'Back', user_tribes_path(:id => current_user.id) %>
+

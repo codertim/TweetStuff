@@ -1,0 +1,65 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <h3 style="display: inline-block">Tribe: <%= @tribe.name %> </h3>
+
+  <br />
+
+  <h6 style="display: inline-block">Description:</h6>
+  <%= @tribe.description %>
+
+  <br />
+
+  <h6 style="display: inline-block">Tribe Members:</h6>
+  <%= @tribe.twitter_users %>
+
+  <h5>
+    Current tweets per person: <%= @tweets_per_person %> 
+  </h5>
+</p>
+
+  <hr />
+
+  <% unless @friends.blank? %>
+    <ul id="democracy-list">
+      <% @friends.each do |friend| %>
+        <li>
+          <img src="<%= friend[:profile_image_link] %>" />
+          <span style="color:black; font-size: 120%">
+            <%= friend[:name] %>
+            -- <%= friend[:screen_name] %>
+          </span>
+          <table border="1" width="50%">
+            <tr>
+              <td>
+                <ol>
+                  <% 0.upto(@tweets_per_person - 1) do |num_tweet| %>
+                    <li>
+                      <%= friend[:most_recent_texts][num_tweet] %>
+                    </li>
+                  <% end %>
+                </ol>
+              </td>
+            </tr>
+          </table>
+        </li>
+
+        <br />
+        <hr width="50%" />
+
+      <% end %>
+    </ul>
+
+  <% else %>
+    No friends found
+    <br />
+  <% end %>
+
+
+  <br />
+
+
+<%= link_to 'Edit', edit_user_tribe_path(@tribe, :user_id => current_user.id) %> |
+<%= link_to 'Back', user_tribes_path(:id => current_user.id) %>
+
+

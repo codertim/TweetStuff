@@ -1,0 +1,32 @@
+
+<h1>Add Tribal Member</h1>
+
+
+<br /><br />
+
+<div>
+    <h5>Select members for this tribe:</h5>
+    <%= form_tag(:action => :create_members, :method => :post) do %>
+        <%= hidden_field_tag :tribe_id, @tribe_id %>
+
+        <%= select_tag(:members, options_for_select(@friends_for_select), {:multiple => true} ) %>
+
+
+	<!-- TODO: implement datalist
+        <datalist id="MemberList">
+          <% @friends_for_data_list.each do |friend| %>
+            <option value="<%= "#{friend}" %>" />
+          <% end %>
+        </datalist>
+
+        HTML 5 DataList: <input id="html5data" type="text" list="MemberList" />
+	-->
+
+	<br /><br />
+
+        <%= submit_tag "Add", {:class => "blue-button"} %>
+
+	<br /><br />
+    <% end %>
+</div>
+

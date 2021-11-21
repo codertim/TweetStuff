@@ -1,0 +1,18 @@
+
+<h3>Change Tweet Count</h3>
+
+<br />
+
+<div style="text-align:center">
+  <%= form_for @tweet_style, :url => update_tweet_count_user_path(@user.id), :html => {:method => :patch} do |f|  %>
+    Number of tweets per user:
+    <%= f.select 'tweets_per_person', (1..20) %>
+    <br />
+    <br />
+    <%= submit_tag 'Save' %> 
+    <br />
+    <br />
+    <br />
+  <% end %>
+</div>
+

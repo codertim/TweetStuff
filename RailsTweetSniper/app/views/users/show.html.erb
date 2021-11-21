@@ -1,0 +1,41 @@
+
+
+<article>
+  <br />
+
+  <h3>Preferences</h3>
+
+  <table class="profile" summary="Profile information">
+    <tr>
+      <td class="main">
+        <h1>
+          <%= gravatar_for @user %>
+          Hello <%= @user.name %>!
+        </h1>
+
+        <br />
+        Tweets per person: <mark> <%= @tweets_per_person %> </mark>
+        &nbsp;&nbsp;
+        <span class="smaller-font edit-link"><%= link_to " edit", edit_tweet_count_user_path(@user) %></span>
+      </td>
+      <td class="sidebar round" id="user-badge">
+        <strong>Name</strong> <%= @user.name %><br />
+        <strong>Email</strong>  <%= @user.email %><br />
+      </td>
+    </tr>
+  </table>
+
+</article>
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+
+

@@ -1,0 +1,34 @@
+  <% if @tribe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tribe.errors.count, "error") %> prohibited this tribe from being saved:</h2>
+
+      <ul>
+      <% @tribe.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= hidden_field_tag(:command, command) %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%#= f.label :twitter_users %><br />
+    <%#= f.text_field :twitter_users %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Next" %>
+  </div>
+
+
+  <br />
+  <br />
+
