@@ -65,6 +65,18 @@ def show_most_recent_tweet(twitter_user):
         print('OS not currently supported')
 
 
+def show_most_recent_tweets(twitter_user, num_tweets):
+    user_tweets = api.user_timeline(screen_name=twitter_user.screen_name, count=num_tweets)
+
+    for tweet in user_tweets:
+      print('\n')
+      print('*' * 20, tweet.created_at, '*' * 20, sep='')
+      print(f'  {tweet.text}')
+      # print(tweet)
+
+    print('*' * 80, sep='')
+
+
 
 ############### main part ##################
 
@@ -103,6 +115,8 @@ while user_input != 'q':
         show_description(user)
     elif (user_input == 'd'):
         show_most_recent_tweet(user)
+    elif (user_input == 'e'):
+        show_most_recent_tweets(user, 5)
 
     print('\n')
 
@@ -114,6 +128,7 @@ while user_input != 'q':
     print('b) display accounts this user follows')
     print('c) display description')
     print('d) display most recent tweet')
+    print('e) display most recent tweets')
     print('q) quit')
     user_input = input()
 
