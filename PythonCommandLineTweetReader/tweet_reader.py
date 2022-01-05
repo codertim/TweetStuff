@@ -16,11 +16,11 @@ def show_description(usr):
   print('User Description: ' + usr.description)
 
 
-def show_friends(usr):
+def show_friends(usr, twitterApi):
   friends = []
   global current_username
   global user
-  cursor = tweepy.Cursor(api.friends, screen_name=usr.screen_name, count=200)
+  cursor = tweepy.Cursor(twitterApi.friends, screen_name=usr.screen_name, count=200)
   for friend in cursor.items(200):
       friends.append(friend.screen_name)
 
@@ -65,8 +65,8 @@ def show_most_recent_tweet(twitter_user):
         print('OS not currently supported')
 
 
-def show_most_recent_tweets(twitter_user, num_tweets):
-    user_tweets = api.user_timeline(screen_name=twitter_user.screen_name, count=num_tweets)
+def show_most_recent_tweets(twitter_user, num_tweets, twitterApi):
+    user_tweets = twitterApi.user_timeline(screen_name=twitter_user.screen_name, count=num_tweets)
 
     for tweet in user_tweets:
       print('\n')
@@ -80,60 +80,68 @@ def show_most_recent_tweets(twitter_user, num_tweets):
 
 ############### main part ##################
 
+print('__name__=', __name__)
 
-num_args = len(sys.argv)
-if num_args < 2:
-  print('\nMissing twitter username')
-  sys.exit(0)
 
-print('Starting')
+def main():
 
-# print('settings key:' + settings_mine.access_token)
+    num_args = len(sys.argv)
+    if num_args < 2:
+        print('\nMissing twitter username')
+        sys.exit(0)
 
-auth = tweepy.OAuthHandler(settings_mine.consumer_key,
+    print('Starting')
+
+    # print('settings key:' + settings_mine.access_token)
+
+    auth = tweepy.OAuthHandler(settings_mine.consumer_key,
                            settings_mine.consumer_secret)
 
-auth.set_access_token(settings_mine.access_token,
+    auth.set_access_token(settings_mine.access_token,
                       settings_mine.access_token_secret)
 
-api = tweepy.API(auth, wait_on_rate_limit=True,
+    api = tweepy.API(auth, wait_on_rate_limit=True,
                  wait_on_rate_limit_notify=True)
 
-current_username = sys.argv[1]
-user = api.get_user(current_username)
+    current_username = sys.argv[1]
+    user = api.get_user(current_username)
 
 
-user_input = ''
-while user_input != 'q':
-    print('\n' * 200)
+    user_input = ''
+    while user_input != 'q':
+        print('\n' * 200)
 
-    if (user_input == 'a'):
-        show_followers_count(user)
-    elif (user_input == 'b'):
-        show_friends(user)
-    elif (user_input == 'c'):
-        show_description(user)
-    elif (user_input == 'd'):
-        show_most_recent_tweet(user)
-    elif (user_input == 'e'):
-        show_most_recent_tweets(user, 5)
+        if (user_input == 'a'):
+            show_followers_count(user)
+        elif (user_input == 'b'):
+            show_friends(user, api)
+        elif (user_input == 'c'):
+            show_description(user)
+        elif (user_input == 'd'):
+            show_most_recent_tweet(user)
+        elif (user_input == 'e'):
+            show_most_recent_tweets(user, 5, api)
 
-    print('\n')
+        print('\n')
 
-    print('Current username: ', current_username, ' (', user.name, ')')
+        print('Current username: ', current_username, ' (', user.name, ')')
 
-    print('\n\n')
+        print('\n\n')
 
-    print('a) display followers count')
-    print('b) display accounts this user follows')
-    print('c) display description')
-    print('d) display most recent tweet')
-    print('e) display most recent tweets')
-    print('q) quit')
-    user_input = input()
+        print('a) display followers count')
+        print('b) display accounts this user follows')
+        print('c) display description')
+        print('d) display most recent tweet')
+        print('e) display most recent tweets')
+        print('q) quit')
+        user_input = input()
+
+    print('Done.')
 
 
+if __name__ == '__main__':
+    main()
 
-print('Done.')
+
 
 
