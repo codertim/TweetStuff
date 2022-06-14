@@ -7,6 +7,10 @@ import sys
 import tweepy
 
 
+IS_DEBUGGING = False
+user = None
+current_username = None
+
 
 def show_followers_count(usr):
   print('Followers count:' + str(usr.followers_count))
@@ -40,7 +44,7 @@ def show_friends(usr, twitterApi):
     new_friend_screen_name = friends[idx_new_friend]
     print('new friend screen name:', new_friend_screen_name)
     current_username = new_friend_screen_name
-    user = api.get_user(current_username)
+    user = twitterApi.get_user(current_username)
 
 
 
@@ -84,6 +88,8 @@ print('__name__=', __name__)
 
 
 def main():
+    global user
+    global current_username
 
     num_args = len(sys.argv)
     if num_args < 2:
@@ -123,6 +129,9 @@ def main():
             show_most_recent_tweets(user, 5, api)
 
         print('\n')
+
+        if (IS_DEBUGGING):
+          print("user:", user)
 
         print('Current username: ', current_username, ' (', user.name, ')')
 
