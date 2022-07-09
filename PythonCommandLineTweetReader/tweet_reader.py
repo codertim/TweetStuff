@@ -120,7 +120,7 @@ def main():
         if (user_input == 'a'):
             show_followers_count(user)
         elif (user_input == 'b'):
-            show_friends(user, api)
+            show_friends(usr=user, twitterApi=api)
         elif (user_input == 'c'):
             show_description(user)
         elif (user_input == 'd'):
