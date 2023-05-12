@@ -29,8 +29,8 @@ def show_friends(usr, twitterApi):
       friends.append(friend.screen_name)
 
   friends = sorted(friends, key=lambda k: k.lower())
-  print('Friends:', friends)
-  # print('Friends: ', ', '.join(sorted(friends, key=lambda s: s.lower())))
+  print('Friends after sortin:', friends)
+
   i = 0
   for friend in friends:
       i = i + 1
@@ -38,8 +38,9 @@ def show_friends(usr, twitterApi):
 
   print('\n\nSelect user or press <return> to go back to main menu')
   friend_input = input()
+
   if friend_input != '':
-    idx_new_friend = int(friend_input) -1
+    idx_new_friend = int(friend_input) - 1
     print('idx_new_friend:', idx_new_friend)
     new_friend_screen_name = friends[idx_new_friend]
     print('new friend screen name:', new_friend_screen_name)
@@ -136,7 +137,6 @@ def main():
         print('Current username: ', current_username, ' (', user.name, ')')
 
         print('\n\n')
-
         print('a) display followers count')
         print('b) display accounts this user follows')
         print('c) display description')
