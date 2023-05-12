@@ -107,11 +107,11 @@ def main():
     auth.set_access_token(settings_mine.access_token,
                       settings_mine.access_token_secret)
 
-    api = tweepy.API(auth, wait_on_rate_limit=True,
-                 wait_on_rate_limit_notify=True)
+    api = tweepy.API(auth, wait_on_rate_limit=True)
+                 # ,wait_on_rate_limit_notify=True)
 
     current_username = sys.argv[1]
-    user = api.get_user(current_username)
+    user = api.get_user(screen_name=current_username)
 
 
     user_input = ''
