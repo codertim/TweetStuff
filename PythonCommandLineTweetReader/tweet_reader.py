@@ -24,7 +24,8 @@ def show_friends(usr, twitterApi):
   friends = []
   global current_username
   global user
-  cursor = tweepy.Cursor(twitterApi.friends, screen_name=usr.screen_name, count=200)
+  # cursor = tweepy.Cursor(twitterApi.friends, screen_name=usr.screen_name, count=200)
+  cursor = tweepy.Cursor(twitterApi.get_friends, screen_name=usr.screen_name, count=200)
   for friend in cursor.items(200):
       friends.append(friend.screen_name)
 
@@ -148,7 +149,7 @@ def main():
         print('q) quit')
         user_input = input()
 
-    print('Done.')
+    print('\nDone.\n')
 
 
 if __name__ == '__main__':
