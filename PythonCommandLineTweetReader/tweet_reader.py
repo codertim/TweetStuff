@@ -7,7 +7,7 @@ import sys
 import tweepy
 
 
-IS_DEBUGGING = True
+IS_DEBUGGING = False
 user = None
 current_username = None
 
