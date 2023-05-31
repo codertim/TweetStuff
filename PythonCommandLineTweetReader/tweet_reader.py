@@ -7,7 +7,7 @@ import sys
 import tweepy
 
 
-IS_DEBUGGING = False
+IS_DEBUGGING = True
 user = None
 current_username = None
 
@@ -111,6 +111,9 @@ def main():
                  # ,wait_on_rate_limit_notify=True)
 
     current_username = sys.argv[1]
+    if IS_DEBUGGING:
+        print('\ncurrent_username: |', current_username, '|', sep='')
+
     user = api.get_user(screen_name=current_username)
 
 
